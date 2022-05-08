@@ -11,4 +11,3 @@ ret1 = 'I' == u_txt[0]
 ret2 = 'I' == b_txt[0]
 print(ret1)
 print(ret2)
-
