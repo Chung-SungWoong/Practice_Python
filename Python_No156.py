@@ -13,7 +13,3 @@ for file in files:
 for file in files:
     if isfile(file):
         print('FILE: %s' %file)
-
-
-
-
