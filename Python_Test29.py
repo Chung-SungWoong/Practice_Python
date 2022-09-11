@@ -25,7 +25,7 @@ def ricecake(array,target,min,max):
     else: 
         ricecake(array,target,min,mid)
 
-print(ricecake(array,target,min(array),max(array)))
+print(ricecake(array,target,0,max(array)))
 
 """
 min(array), max(array) 써야하는걸 min(array), min(array) 써놔서 디버깅 1시간 소모
