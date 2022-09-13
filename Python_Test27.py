@@ -34,3 +34,13 @@ def solution(s):
     return answer
 
 print(solution(s))
+
+"""
+모범 답안 
+
+def solution(s):
+    nums = list(map(int, s.split()))
+    num_min, num_max = min(nums), max(nums)
+    answer = str(num_min) + ' ' + str(num_max)
+    return answer
+"""
