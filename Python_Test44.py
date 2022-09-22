@@ -1,5 +1,5 @@
 """
-
+Counter 사용법
 """
 
 from collections import Counter
