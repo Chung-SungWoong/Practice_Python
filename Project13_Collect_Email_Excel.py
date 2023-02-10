@@ -2,6 +2,8 @@
 
 import re
 import requests
+from openpyxl import load_workbook
+from openpyxl import Workbook
 
 '''
 
@@ -37,3 +39,15 @@ results = re.findall(r'[\w\.-]+@[\w\.-]+',response.text)
 results = list(set(results))
 
 print(results)
+
+try:
+    wb = load_workbook(r'/Users/chung_sungwoong/Desktop/Practice/Practice_Python/email.xlsx',data_only=True)
+    sheet = wb.active
+except:
+    wb = Workbook()
+    sheet = wb.active
+
+for result in results:
+    sheet.append([result])
+
+wb.save(r'/Users/chung_sungwoong/Desktop/Practice/Practice_Python/email.xlsx')
