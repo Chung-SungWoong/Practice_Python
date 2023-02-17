@@ -1,3 +1,7 @@
+"""
+주피터 노트북 코드를 py 코드로 바꿀 필요 있음
+"""
+
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -27,10 +31,19 @@ def Selenium_Test():
         for i in range(60):
             elem.send_keys(Keys.PAGE_DOWN)
             time.sleep(0.1)
+        links = []
+        images = driver.find_element(By.CSS_SELECTOR,'body > div.L3eUgb > div.o3j99.ikrT4e.om7nvf > form > div:nth-child(1) > div.A8SBwf.emcav > div.RNNXgb > div > div.a4bIc > input').click()
+
+        for image in images:
+            if image.get_attribute('src') is not None:
+                links.append(image.get_attribute('src'))
+        print('찾은 이미지 개수:', len(links))
     except:
         pass
 
     while(True):
         pass
+
+    
 
 Selenium_Test()
