@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import urllib.request
 import time
 
 def Selenium_Test():
@@ -38,6 +39,11 @@ def Selenium_Test():
             if image.get_attribute('src') is not None:
                 links.append(image.get_attribute('src'))
         print('찾은 이미지 개수:', len(links))
+
+        for k, i in enumerate(links):
+            url = i
+            rllib.request.urlretrieve(url,"/Users/chung_sungwoong/Desktop/Practice/Practice_Python/" +str(k) +".jpg")
+        print("다운로드를 완료하였습니다") 
     except:
         pass
 
