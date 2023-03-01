@@ -41,3 +41,7 @@ for zoom_result in zoom_results:
     print(zoom_result.text)
     zoom_list.append(zoom_result.text)
 
+print("네이버", naver_list)
+print("네이트",nate_list)
+print("줌",zoom_list)
+
