@@ -12,3 +12,12 @@ pytesseract.pytesseract.tesseract_cmd = r'C:/Program Files/Tesseract-OCR/tessera
 text = pytesseract.image_to_string(Image.open(image_path),lang='kor')
 
 print(text)
+
+with open(r"/Users/chung_sungwoong/Desktop/Practice/Practice_Python/Project22_한글텍스트.txt",'w',encoding="utf8") as f:
+    f.write(text)
+
+# 사용 가능한 언어 확인
+pytesseract.pytesseract.teseract_cmd = r'C:/Program Files/Tesseract-OCR/tesseract.exe'
+languages = pytesseract.get_languages(config=' ')
+print(languages)
+
