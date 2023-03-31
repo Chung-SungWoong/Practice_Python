@@ -17,6 +17,17 @@
 def solution(n, m, section):
     answer = 0
     i = 0
-    while i >= n:
-        i += section[i] + m 
+    j = 0
+    while True:
+        if i < len(section) and section[i] >= j:        # i가 리스트 이상으로 커지지 않게해야하는 것을 생각하지 않아서 오류가 많이 났음
+            j = section[i] + m
+            i += 1
+            answer += 1
+        else:
+            i += 1
+        if j > n or i >= len(section):
+            break
+            
     return answer
+    
+print(solution(5,4,[1, 3]))
