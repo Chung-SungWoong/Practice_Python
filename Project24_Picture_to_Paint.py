@@ -5,7 +5,6 @@ ff = np.fromfile(r'/Users/chung_sungwoong/Desktop/Practice/Practice_Python/Proje
 img = cv2.imdecode(ff,cv2.IMREAD_UNCHANGED)
 img = cv2.resize(img,dsize=(0,0),fx=1.0,fy=1.0,interpolation=cv2.INTER_LINEAR)
 
-
 def onChange(pos):
     pass
 

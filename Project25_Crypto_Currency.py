@@ -30,9 +30,16 @@ for day in reversed(dates):                         # 날짜를 반대로 하여
     db_path = r"/Users/chung_sungwoong/Desktop/Practice/Practice_Python/Crypto_Coin.db"
     
     con = sqlite3.connect(db_path, isolation_level=None)
+
+    readed_df = pd.read_sql("SELECT DISTINCT * FROM 'BTC' ",con, index_col = 'index')
+    readed_df.to_sql('BTC_NEW', con, if_exists = 'replace')         # 중복된 값 제거
+    print(readed_df)    
     price_now.to_sql("BTC", con, if_exists='append')
 
     con.close
+
+
+
 '''
 
     readed_df = pd.read_sql("SELECT DISTINCT * FROM 'BTC' " , con, index_col = 'index')
