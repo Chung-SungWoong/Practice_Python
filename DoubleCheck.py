@@ -9,7 +9,6 @@ last = 0
 answer = 0
 
 while True:
-    
     last = (x[n][1]+last)//2
     if (x[n][1]+last)%2 != 1:
         answer += 1
