@@ -1,8 +1,7 @@
 def solution(array):
     answer = 0
     for i in array:
-        if str(i).count('7'):
-            answer += 1
+        answer += str(i).count('7')
 
     return answer
 
