@@ -1,16 +1,10 @@
 def solution(numbers):
-    answer = []
-    for i in range(len(numbers)-1):
-        if i == len(numbers) or max(numbers[i+1:]) < numbers[i]:
-            answer.append(-1)
-        else:
-            for n in range(i,len(numbers)):
-                if numbers[n] > numbers[i]:
-                    answer.append(numbers[n])
-                    break
-                else:
-                    continue
-    answer.append(-1)
+    answer = [-1] * len(numbers)
+    stack = []
+    for i in range(len(numbers)):
+        while stack and numbers[stack[-1]] < numbers[i]:
+            answer[stack.pop()] = numbers[i]
+        stack.append(i)
     return answer
 
 print(solution([9, 1, 5, 3, 6, 2]))
