@@ -1,6 +1,3 @@
-"""
-
-"""
 
 import pandas as pd
 import requests
@@ -44,8 +41,6 @@ university_list = df_from_excel['학교명'].to_list()
 address_list = df_from_excel['주소'].to_list()
 
 """
-
-
 print(df_from_excel.head())
 
 print(df_from_excel['학교명'].values)
