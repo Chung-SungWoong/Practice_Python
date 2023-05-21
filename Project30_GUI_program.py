@@ -11,4 +11,14 @@ label=tkinter.Label(window, text="hello")
 
 label.pack()
 
+cnt = 0
+def get_coin_1sec():
+    global cnt
+    now_btc_price = str(cnt)
+    cnt = cnt + 1
+    label.config(text=now_btc_price)
+    window.after(1000,get_coin_1sec)
+
+get_coin_1sec()
+
 window.mainloop()
