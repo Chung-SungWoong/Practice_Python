@@ -2,10 +2,10 @@ from tkinter import *
 from tkinter.filedialog import *
 
 def new_file():
-    pass
+    text_area.delete(1.0,END)
 
 def save_file():
-    pass
+    f = asksaveasfile(mode="w", defaulttextension= ".txt", filetypes=[('Text files', '.txt')])
 
 def maker():
     pass
