@@ -6,12 +6,18 @@ def new_file():
 
 def save_file():
     f = asksaveasfile(mode="w", defaulttextension= ".txt", filetypes=[('Text files', '.txt')])
+    text_save = str(text_area.get(1.0,END))
+    f.write(text_save)
+    f.close
 
 def maker():
-    pass
+    help_view = Toplevel(window)
+    help_view.geometry("300x50+800+300")
+    help_view.title("만든이")
+    lb = Label(help_view, text = "파이썬과 40개의 작품들 메모장 ")
+    lb.pack()
 
 window = Tk()
-
 window.title("메모장")
 window.geometry("400x400+800+300")
 window.resizable(False,False)
