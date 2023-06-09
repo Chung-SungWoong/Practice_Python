@@ -10,6 +10,21 @@ class WindowClass(QMainWindow,form_class):
         super().__init__()
         self.setupUi(self)
 
+        self.btn_C.connect(self.btn_clicked)
+        self.btn_number0.clicked.connect(self.btn_clicked)
+        self.btn_number1.clicked.connect(self.btn_clicked)
+        self.btn_number2.clicked.connect(self.btn_clicked)
+        self.btn_number3.clicked.connect(self.btn_clicked)
+        self.btn_number4.clicked.connect(self.btn_clicked)
+        self.btn_number5.clicked.connect(self.btn_clicked)
+        self.btn_number6.clicked.connect(self.btn_clicked)
+        self.btn_number7.clicked.connect(self.btn_clicked)
+        self.btn_number8.clicked.connect(self.btn_clicked)
+        self.btn_number9.clicked.connect(self.btn_clicked)
+        self.btn_number0.clicked.connect(self.btn_clicked)
+        self.btn_number0.clicked.connect(self.btn_clicked)
+        
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
