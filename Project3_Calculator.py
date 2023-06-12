@@ -19,11 +19,17 @@ class WindowClass(QMainWindow,form_class):
         self.btn_number5.clicked.connect(self.btn_clicked)
         self.btn_number6.clicked.connect(self.btn_clicked)
         self.btn_number7.clicked.connect(self.btn_clicked)
-        self.btn_number8.clicked.connect(self.btn_clicked)
-        self.btn_number9.clicked.connect(self.btn_clicked)
-        self.btn_number0.clicked.connect(self.btn_clicked)
-        self.btn_number0.clicked.connect(self.btn_clicked)
-        
+        self.btn_result.clicked.connect(self.btn_clicked)
+        self.btn_minus.clicked.connect(self.btn_clicked)
+        self.btn_add.clicked.connect(self.btn_clicked)
+        self.btn_multiply.clicked.connect(self.btn_clicked)
+        self.btn_divide.clicked.connect(self.btn_clicked)
+
+        self.le_view.setEnabled(False)
+
+    def btn_clicked(self):
+        btn_value = self.sender().text()
+        print(btn_value)
 
 
 if __name__ == "__main__":
