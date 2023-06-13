@@ -2,69 +2,57 @@ import sys
 import math
 import cv2 as cv
 import numpy as np
-
-def hough_lines_manual(edges):
-    # Rho and Theta ranges
-    thetas = np.deg2rad(np.arange(-90.0, 90.0))
-    width, height = edges.shape
-    diag_len = int(np.ceil(np.sqrt(width * width + height * height)))   # max_dist
-    rhos = np.linspace(-diag_len, diag_len, diag_len * 2)
-
-    # Cache some reusable values
-    cos_t = np.cos(thetas)
-    sin_t = np.sin(thetas)
-    num_thetas = len(thetas)
-
-    # Hough accumulator array of theta vs rho
-    accumulator = np.zeros((2 * diag_len, num_thetas), dtype=np.uint64)
-    y_idxs, x_idxs = np.nonzero(edges)  # (row, col) indexes to edges
-
-    # Vote in the hough accumulator
-    for i in range(len(x_idxs)):
-        x = x_idxs[i]
-        y = y_idxs[i]
-
-        for t_idx in range(num_thetas):
-            # Calculate rho. diag_len is added for a positive index
-            rho = diag_len + int(round(x * cos_t[t_idx] + y * sin_t[t_idx]))
-            accumulator[rho, t_idx] += 1
-
-    return accumulator, thetas, rhos
-
 def main(argv):
-    default_file = 'sudoku.png'
+    
+    default_file = '/Users/chung_sungwoong/Desktop/Image Processing/Class_3/test_2_add.jpg'
     filename = argv[0] if len(argv) > 0 else default_file
     # Loads an image
-    src = cv.imread(cv.samples.findFile(filename), cv.IMREAD_GRAYSCALE)
+    src = cv.imread(filename, cv.IMREAD_GRAYSCALE)  # This line has been changed
     # Check if image is loaded fine
     if src is None:
         print ('Error opening image!')
         print ('Usage: hough_lines.py [image_name -- default ' + default_file + '] \n')
         return -1
-
+    
+    # Apply Gaussian blur before edge detection for better results
+    src = cv.GaussianBlur(src,(5,5),0)
+    
+    # Apply Otsu's thresholding
+    _, src = cv.threshold(src, 0, 255, cv.THRESH_BINARY+cv.THRESH_OTSU)
+    
     dst = cv.Canny(src, 50, 200, None, 3)
+    
+    # Copy edges to the images that will display the results in BGR
     cdst = cv.cvtColor(dst, cv.COLOR_GRAY2BGR)
-
-    accumulator, thetas, rhos = hough_lines_manual(dst)
-
-    for y in range(accumulator.shape[0]):
-        for x in range(accumulator.shape[1]):
-            if accumulator[y][x] > 100:  # threshold
-                rho = rhos[y]
-                theta = thetas[x]
-                a = math.cos(theta)
-                b = math.sin(theta)
-                x0 = a * rho
-                y0 = b * rho
-                pt1 = (int(x0 + 1000*(-b)), int(y0 + 1000*(a)))
-                pt2 = (int(x0 - 1000*(-b)), int(y0 - 1000*(a)))
-                cv.line(cdst, pt1, pt2, (0,0,255), 3, cv.LINE_AA)
-
+    cdstP = np.copy(cdst)
+    
+    lines = cv.HoughLines(dst, 1, np.pi / 180, 150, None, 0, 0)
+    
+    if lines is not None:
+        for i in range(0, len(lines)):
+            rho = lines[i][0][0]
+            theta = lines[i][0][1]
+            a = math.cos(theta)
+            b = math.sin(theta)
+            x0 = a * rho
+            y0 = b * rho
+            pt1 = (int(x0 + 1000*(-b)), int(y0 + 1000*(a)))
+            pt2 = (int(x0 - 1000*(-b)), int(y0 - 1000*(a)))
+            cv.line(cdst, pt1, pt2, (0,0,255), 3, cv.LINE_AA)
+    
+    linesP = cv.HoughLinesP(dst, 1, np.pi / 180, 50, None, 50, 10)
+    
+    if linesP is not None:
+        for i in range(0, len(linesP)):
+            l = linesP[i][0]
+            cv.line(cdstP, (l[0], l[1]), (l[2], l[3]), (0,0,255), 3, cv.LINE_AA)
+    
     cv.imshow("Source", src)
-    cv.imshow("Detected Lines (in red) - Manual Hough Line Transform", cdst)
-
+    cv.imshow("Detected Lines (in red) - Standard Hough Line Transform", cdst)
+    cv.imshow("Detected Lines (in red) - Probabilistic Line Transform", cdstP)
+    
     cv.waitKey()
     return 0
-
+    
 if __name__ == "__main__":
     main(sys.argv[1:])
