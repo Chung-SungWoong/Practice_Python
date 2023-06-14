@@ -27,8 +27,21 @@ class WindowClass(QMainWindow,form_class):
 
         self.le_view.setEnabled(False)
 
+        self.text_value = " "
+
     def btn_clicked(self):
         btn_value = self.sender().text()
+        if btn_value == 'C':
+            print("clear")
+            self.le_view.setText("0")
+            self.text_value = " "
+        elif btn_value == '=':
+            print("=")
+            try:
+                    resultValue = eval(self.text_value.lstrip("0"))
+                    self.le_view.setText(str(resultValue))
+            except:
+                 
         print(btn_value)
 
 
