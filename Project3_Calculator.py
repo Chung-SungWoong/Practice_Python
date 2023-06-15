@@ -41,9 +41,13 @@ class WindowClass(QMainWindow,form_class):
                     resultValue = eval(self.text_value.lstrip("0"))
                     self.le_view.setText(str(resultValue))
             except:
-                 
-        print(btn_value)
-
+                    self.le_view.setText("Error")
+        else:
+            if btn_value == "X":
+                  btn_value = "*"
+            self.text_value = self.text_value + btn_value
+            print(self.text_value)
+            self.le_view.setText(self.text_value)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
