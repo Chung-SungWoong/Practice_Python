@@ -31,9 +31,26 @@ class Player():
                 self.isJump = False
                 self.jumpCount = 10
 
+class Enemy():
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+
+    def draw(self):
+        return pygame.draw.rect(screen,(255,0,0),(self.x, self.y, 20,40))
+    
+    def move(self,speed):
+        self.x = self.x - speed
+        if self.x <= 0:
+            self.x = MAX_WIDTH
+
 player = Player(50,MAX_HEIGHT - 40)
+enemy = Enemy(MAX_WIDTH,MAX_HEIGHT - 40)
 
 def main():
+
+    speed = 7
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,16 +60,22 @@ def main():
                 if event.key == pygame.K_SPACE:
                     player.isJump = True
             
-
             clock.tick(FPS)
             screen.fill((255,255,255))
 
             player_rect = player.draw()
             player.jump()
 
-            print(player_rect)
-            
-            pygame.display.update()
+            enemy_rect = enemy.draw()
+            enemy.move(speed)
+            speed = speed + 0.01
 
+            if player_rect.colliderect(enemy_rect):
+                print("충돌")
+                pygame.quit()
+                sys.exit()
+
+            pygame.display.update()
+            
 if __name__ == '__main__':
     main()
