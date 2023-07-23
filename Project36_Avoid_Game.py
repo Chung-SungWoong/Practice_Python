@@ -19,6 +19,10 @@ class Player():
     def draw(self):
         return pygame.draw.rect(screen,(0,0,255),(self.x,self.y,40,40))
     
+    if pressed_keys[K_RIGHT]:
+        if self.x < MAX_WIDTH - 40:
+            self.x += 
+
     def move(self):
         if pressed_keys[K_RIGHT]:
             if self.x < MAX_WIDTH-40:
